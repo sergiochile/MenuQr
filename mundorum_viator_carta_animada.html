@@ -50,11 +50,10 @@
     animation: colorShift 2s linear infinite;
   }
   @keyframes colorShift {
-    0%   { color: #ff2d78; text-shadow: 0 0 12px #ff2d78, 0 0 24px #ff2d78; }
-    25%  { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
-    50%  { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
-    75%  { color: #39ff14; text-shadow: 0 0 12px #39ff14, 0 0 24px #39ff14; }
-    100% { color: #ff2d78; text-shadow: 0 0 12px #ff2d78, 0 0 24px #ff2d78; }
+    0%   { color: #d42b2b; text-shadow: 0 0 12px #d42b2b, 0 0 24px #d42b2b; }
+    33%  { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
+    66%  { color: #ff6a00; text-shadow: 0 0 12px #ff6a00, 0 0 24px #ff6a00; }
+    100% { color: #d42b2b; text-shadow: 0 0 12px #d42b2b, 0 0 24px #d42b2b; }
   }
 
   .subtitle-mv {
@@ -65,42 +64,47 @@
     text-align: center;
   }
 
-  /* Ghosts */
-  .ghosts-row {
+  /* Pac-Man decorativo grande */
+  .pacman-hero-wrap {
     display: flex;
-    gap: 28px;
-    margin: 28px 0 18px;
-  }
-  .ghost {
-    font-size: 38px;
-    animation: floatGhost 1.2s ease-in-out infinite alternate;
-  }
-  .ghost:nth-child(1) { animation-delay: 0s;    filter: drop-shadow(0 0 6px #ff2d78); }
-  .ghost:nth-child(2) { animation-delay: 0.3s;  filter: drop-shadow(0 0 6px #00e5ff); }
-  .ghost:nth-child(3) { animation-delay: 0.6s;  filter: drop-shadow(0 0 6px #ffe600); }
-  .ghost:nth-child(4) { animation-delay: 0.9s;  filter: drop-shadow(0 0 6px #39ff14); }
-  @keyframes floatGhost {
-    from { transform: translateY(0px); }
-    to   { transform: translateY(-8px); }
-  }
-
-  /* Corazones */
-  .hearts-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
+    flex-direction: column;
     align-items: center;
+    margin: 28px 0 18px;
+    gap: 14px;
   }
-  .heart {
-    font-size: 22px;
-    animation: heartBeat 0.9s ease-in-out infinite;
+  .pacman-hero-track {
+    position: relative;
+    width: min(320px, 80vw);
+    height: 48px;
   }
-  .heart:nth-child(1) { animation-delay: 0s;   }
-  .heart:nth-child(2) { animation-delay: 0.15s;}
-  .heart:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes heartBeat {
-    0%,100% { transform: scale(1); }
-    50%     { transform: scale(1.4); filter: drop-shadow(0 0 6px #ff2d78); }
+  .pacman-hero-dots {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .pacman-hero-dot {
+    width: 10px; height: 10px;
+    background: #ffe600;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #ffe600;
+  }
+  .pacman-hero {
+    width: 46px; height: 46px;
+    background: #ffe600;
+    border-radius: 50%;
+    clip-path: polygon(100% 50%, 0% 0%, 0% 100%);
+    animation: chomp 0.22s ease-in-out infinite alternate, movePacHero 3.8s linear infinite;
+    position: absolute;
+    top: 1px; left: 0;
+    box-shadow: 0 0 14px #ffe600, 0 0 28px rgba(255,230,0,0.4);
+  }
+  @keyframes movePacHero {
+    from { left: 0; }
+    to   { left: calc(min(320px, 80vw) - 46px); }
   }
 
   /* Insert coin */
@@ -119,20 +123,20 @@
   #btn-start {
     padding: 20px 48px;
     background: transparent;
-    color: #39ff14;
-    border: 3px solid #39ff14;
+    color: #d42b2b;
+    border: 3px solid #d42b2b;
     font-family: 'Press Start 2P', monospace;
     font-size: clamp(14px, 2vw, 18px);
     cursor: pointer;
     letter-spacing: 3px;
-    text-shadow: 0 0 8px #39ff14;
-    box-shadow: 0 0 12px #39ff14, inset 0 0 12px rgba(57,255,20,0.1);
+    text-shadow: 0 0 8px #d42b2b;
+    box-shadow: 0 0 12px #d42b2b, inset 0 0 12px rgba(212,43,43,0.1);
     transition: all 0.15s;
   }
   #btn-start:hover, #btn-start:focus {
-    background: #39ff14;
-    color: #000;
-    box-shadow: 0 0 24px #39ff14;
+    background: #d42b2b;
+    color: #fff;
+    box-shadow: 0 0 28px #d42b2b;
     text-shadow: none;
     transform: scale(1.04);
   }
@@ -255,7 +259,7 @@
   /* Header */
   #carta-header {
     background: #0a0a0a;
-    border-bottom: 2px solid #ff2d78;
+    border-bottom: 2px solid #d42b2b;
     padding: 12px 16px;
     display: flex;
     align-items: center;
@@ -263,27 +267,27 @@
     position: sticky;
     top: 0;
     z-index: 40;
-    box-shadow: 0 2px 12px rgba(255,45,120,0.3);
+    box-shadow: 0 2px 12px rgba(212,43,43,0.4);
   }
   #carta-header span {
     font-size: 14px;
-    color: #ff2d78;
-    text-shadow: 0 0 8px #ff2d78;
+    color: #d42b2b;
+    text-shadow: 0 0 8px #d42b2b;
     letter-spacing: 2px;
   }
   #btn-back {
     font-family: 'Press Start 2P', monospace;
     font-size: 12px;
-    color: #00e5ff;
+    color: #ffe600;
     background: none;
-    border: 2px solid #00e5ff;
+    border: 2px solid #ffe600;
     cursor: pointer;
     padding: 10px 16px;
-    text-shadow: 0 0 6px #00e5ff;
-    box-shadow: 0 0 8px rgba(0,229,255,0.3);
+    text-shadow: 0 0 6px #ffe600;
+    box-shadow: 0 0 8px rgba(255,230,0,0.3);
     transition: all 0.12s;
   }
-  #btn-back:hover { background: #00e5ff; color: #000; text-shadow: none; }
+  #btn-back:hover { background: #ffe600; color: #000; text-shadow: none; }
 
   /* Tabs */
   .tabs-bar {
@@ -319,9 +323,6 @@
   .carta-section { display: none; padding: 18px 16px; animation: fadeUp 0.3s ease both; }
   .carta-section.active { display: block; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  #img-section { display: none; animation: fadeUp 0.3s ease both; }
-  #img-section.active { display: block; }
-
   /* Título de sección */
   .section-title {
     font-size: 16px;
@@ -331,10 +332,10 @@
     border-bottom: 1px solid #222;
     text-align: center;
   }
-  #tab-entrantes  .section-title { color: #ff2d78; text-shadow: 0 0 8px #ff2d78; }
+  #tab-entrantes  .section-title { color: #d42b2b; text-shadow: 0 0 8px #d42b2b; }
   #tab-principales .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
   #tab-postres    .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
-  #tab-bebidas    .section-title { color: #39ff14; text-shadow: 0 0 8px #39ff14; }
+  #tab-bebidas    .section-title { color: #ff6a00; text-shadow: 0 0 8px #ff6a00; }
 
   /* Dish cards */
   .dish-card {
@@ -348,19 +349,19 @@
     margin-bottom: 10px;
     transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
   }
-  #tab-entrantes   .dish-card { border-left-color: #ff2d78; }
+  #tab-entrantes   .dish-card { border-left-color: #d42b2b; }
   #tab-principales .dish-card { border-left-color: #00e5ff; }
   #tab-postres     .dish-card { border-left-color: #ffe600; }
-  #tab-bebidas     .dish-card { border-left-color: #39ff14; }
+  #tab-bebidas     .dish-card { border-left-color: #ff6a00; }
 
   .dish-card:hover {
     transform: translateX(4px);
     box-shadow: -4px 0 16px rgba(255,255,255,0.08);
   }
-  #tab-entrantes   .dish-card:hover { box-shadow: -4px 0 16px rgba(255,45,120,0.25); }
+  #tab-entrantes   .dish-card:hover { box-shadow: -4px 0 16px rgba(212,43,43,0.35); }
   #tab-principales .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.25); }
   #tab-postres     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
-  #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(57,255,20,0.25); }
+  #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,106,0,0.30); }
 
   .dish-emoji { font-size: 40px; flex-shrink: 0; }
   .dish-info  { flex: 1; }
@@ -387,9 +388,9 @@
     letter-spacing: 2px;
     border: 1px solid;
   }
-  .dish-tag.veg  { color: #39ff14; border-color: #39ff14; }
-  .dish-tag.new  { color: #ffe600; border-color: #ffe600; }
-  .dish-tag.star { color: #ff2d78; border-color: #ff2d78; }
+  .dish-tag.veg  { color: #ffe600; border-color: #ffe600; }
+  .dish-tag.new  { color: #ff6a00; border-color: #ff6a00; }
+  .dish-tag.star { color: #d42b2b; border-color: #d42b2b; }
   .dish-tag.spec { color: #00e5ff; border-color: #00e5ff; }
 
   /* Footer carta */
@@ -423,22 +424,34 @@
     <div class="title-mv">MUNDORUM<br>VIATOR</div>
     <div class="subtitle-mv">— CARTA DIGITAL —</div>
 
-    <div class="ghosts-row">
+    <div class="ghosts-row" style="display:none">
       <div class="ghost">👻</div>
       <div class="ghost">👻</div>
       <div class="ghost">👻</div>
       <div class="ghost">👻</div>
     </div>
 
-    <div class="hearts-row">
+    <div class="hearts-row" style="display:none">
       <div class="heart">❤️</div>
       <div class="heart">❤️</div>
       <div class="heart">❤️</div>
+    </div>
+
+    <div class="pacman-hero-wrap">
+      <div class="pacman-hero-track">
+        <div class="pacman-hero-dots">
+          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
+          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
+          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
+          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
+        </div>
+        <div class="pacman-hero"></div>
+      </div>
     </div>
 
     <div class="insert-coin">— INSERT COIN —</div>
 
-    <button id="btn-start" onclick="startLoading()">► START GAME</button>
+    <button id="btn-start" onclick="startLoading()">► CARTA</button>
 
     <div class="pacman-track">
       <div class="dots-row">
@@ -487,7 +500,6 @@
       <button class="tab-btn"        onclick="showTab('principales',this)">🍖 PRINC.</button>
       <button class="tab-btn"        onclick="showTab('postres',this)">🍮 POST.</button>
       <button class="tab-btn"        onclick="showTab('bebidas',this)">🍺 BEB.</button>
-      <button class="tab-btn"        onclick="showTab('imagen',this)">🗺 CARTA</button>
     </div>
 
     <!-- ENTRANTES -->
@@ -673,11 +685,6 @@
       </div>
     </div>
 
-    <!-- IMAGEN -->
-    <div id="img-section">
-      <img src="Restaurant_Menu_Design_In_a_pixel_art_style_this_is_a_digital_menu_for_q5xG72yD.png"
-           alt="Carta Mundorum Viator" style="width:100%;display:block;">
-    </div>
 
     <div class="carta-footer">
       <p>★ MUNDORUM VIATOR ★</p>
@@ -735,15 +742,10 @@
 
   function showTab(name, btn) {
     document.querySelectorAll('.carta-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('img-section').classList.remove('active');
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    if (name === 'imagen') {
-      document.getElementById('img-section').classList.add('active');
-    } else {
-      const sec = document.getElementById('tab-' + name);
-      if (sec) sec.classList.add('active');
-    }
+    const sec = document.getElementById('tab-' + name);
+    if (sec) sec.classList.add('active');
     if (navigator.vibrate) navigator.vibrate(20);
   }
 </script>
