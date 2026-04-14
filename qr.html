@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Mundorum Viator — Carta Digital</title>
+  <!-- Librería QR code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+    }
+
+    /* ── Cartel imprimible ── */
+    .cartel {
+      background: #000;
+      border: 4px solid #FFD700;
+      max-width: 380px;
+      width: 100%;
+      padding: 32px 28px 28px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 40px rgba(255,215,0,0.25), inset 0 0 60px rgba(0,0,0,0.8);
+    }
+
+    /* Esquinas pixel art */
+    .cartel::before, .cartel::after {
+      content: '★';
+      position: absolute;
+      color: #FFD700;
+      font-size: 16px;
+      top: 10px;
+    }
+    .cartel::before { left: 14px; }
+    .cartel::after  { right: 14px; }
+
+    .corner-bottom-left, .corner-bottom-right {
+      position: absolute;
+      color: #FFD700;
+      font-size: 16px;
+      bottom: 10px;
+      font-family: 'Press Start 2P', monospace;
+    }
+    .corner-bottom-left  { left: 14px; }
+    .corner-bottom-right { right: 14px; }
+
+    /* Título */
+    .title {
+      font-size: clamp(18px, 5vw, 26px);
+      color: #FFD700;
+      text-shadow: 3px 3px #8B0000;
+      line-height: 1.5;
+      letter-spacing: 2px;
+      animation: colorShift 1.4s infinite;
+      margin-bottom: 6px;
+    }
+    @keyframes colorShift {
+      0%,100% { color: #FFD700; }
+      40%  { color: #FF4444; }
+      70%  { color: #44FFFF; }
+    }
+
+    .subtitle {
+      font-size: 8px;
+      color: #00FF88;
+      letter-spacing: 4px;
+      margin-bottom: 24px;
+    }
+
+    /* Separador pixel art */
+    .sep {
+      border: none;
+      border-top: 2px dashed #333;
+      margin: 18px auto;
+      width: 90%;
+    }
+
+    /* Texto "Escanea" */
+    .escanea {
+      font-size: 8px;
+      color: #FFF;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      animation: blink 1s step-end infinite;
+      line-height: 1.8;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* QR container */
+    .qr-wrap {
+      display: inline-block;
+      padding: 12px;
+      background: #FFF;
+      border: 4px solid #FFD700;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .qr-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border: 2px solid #FFD700;
+      opacity: 0.3;
+    }
+
+    canvas { display: block; }
+
+    /* URL debajo del QR */
+    .url-text {
+      font-size: 7px;
+      color: #555;
+      word-break: break-all;
+      margin-bottom: 18px;
+      padding: 8px;
+      border: 1px solid #222;
+      background: #0a0a0a;
+      line-height: 1.8;
+    }
+
+    /* Iconos de platos */
+    .dishes-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 20px;
+      margin: 12px 0;
+      animation: fadeItems 2s ease infinite alternate;
+    }
+    @keyframes fadeItems {
+      from { opacity: 0.6; transform: translateY(0); }
+      to   { opacity: 1;   transform: translateY(-3px); }
+    }
+
+    /* Textos de secciones */
+    .sections {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .sec-badge {
+      font-size: 6px;
+      color: #000;
+      background: #FFD700;
+      padding: 4px 8px;
+      letter-spacing: 1px;
+    }
+    .sec-badge:nth-child(2) { background: #00FF88; }
+    .sec-badge:nth-child(3) { background: #FF4444; color: #fff; }
+    .sec-badge:nth-child(4) { background: #44FFFF; }
+
+    /* Footer */
+    .footer-text {
+      font-size: 6px;
+      color: #444;
+      letter-spacing: 2px;
+      line-height: 2;
+      margin-top: 8px;
+    }
+
+    /* Botón de impresión (solo en pantalla) */
+    .print-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      background: #000;
+      color: #00FF00;
+      border: 2px solid #00FF00;
+      padding: 12px 18px;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(0,255,0,0.3);
+      transition: all 0.1s;
+      z-index: 100;
+    }
+    .print-btn:hover { background: #00FF00; color: #000; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .cartel {
+        border-color: #000;
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0 auto;
+        page-break-inside: avoid;
+      }
+      .title { color: #000 !important; text-shadow: none !important; animation: none !important; }
+      .subtitle { color: #333 !important; }
+      .escanea { color: #333 !important; animation: none !important; }
+      .sec-badge { border: 1px solid #000; }
+      .print-btn { display: none; }
+      .url-text { color: #333; border-color: #ccc; background: #fff; }
+      .footer-text { color: #666; }
+      .sep { border-color: #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cartel">
+  <span class="corner-bottom-left">★</span>
+  <span class="corner-bottom-right">★</span>
+
+  <div class="title">MUNDORUM<br>VIATOR</div>
+  <div class="subtitle">✦ CARTA DIGITAL ✦</div>
+
+  <hr class="sep">
+
+  <div class="dishes-row">🍢🥩🍮🍺</div>
+
+  <div class="sections">
+    <span class="sec-badge">ENTRANTES</span>
+    <span class="sec-badge">PRINCIPALES</span>
+    <span class="sec-badge">POSTRES</span>
+    <span class="sec-badge">BEBIDAS</span>
+  </div>
+
+  <div class="escanea">▼ ESCANEA CON TU MÓVIL ▼</div>
+
+  <div class="qr-wrap">
+    <canvas id="qr-canvas"></canvas>
+  </div>
+
+  <div class="url-text" id="url-display">Generando enlace...</div>
+
+  <hr class="sep">
+
+  <div class="footer-text">
+    Carta interactiva · Pixel Art Edition<br>
+    © Mundorum Viator 2025
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨 IMPRIMIR QR</button>
+
+<script>
+  // URL pública en GitHub Pages
+  const URL_CARTA = 'https://sergiochile.github.io/MenuQr/mundorum_viator_carta_animada.html';
+
+  document.getElementById('url-display').textContent = URL_CARTA;
+
+  QRCode.toCanvas(
+    document.getElementById('qr-canvas'),
+    URL_CARTA,
+    {
+      width: 200,
+      margin: 2,
+      color: { dark: '#000000', light: '#ffffff' },
+      errorCorrectionLevel: 'H'
+    },
+    function(error) {
+      if (error) {
+        document.getElementById('url-display').textContent = 'Error: ' + error;
+      }
+    }
+  );
+</script>
+
+</body>
+</html>
