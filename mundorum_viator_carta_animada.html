@@ -21,7 +21,7 @@
 
   #app {
     width: 100%;
-    max-width: 420px;
+    max-width: 860px;
     min-height: 100vh;
     background: #000;
     position: relative;
@@ -43,10 +43,10 @@
 
   /* Título animado colores */
   .title-mv {
-    font-size: clamp(20px, 6vw, 28px);
+    font-size: clamp(32px, 6vw, 56px);
     text-align: center;
     line-height: 1.6;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     animation: colorShift 2s linear infinite;
   }
   @keyframes colorShift {
@@ -58,21 +58,21 @@
   }
 
   .subtitle-mv {
-    font-size: 8px;
+    font-size: 14px;
     color: #888;
-    letter-spacing: 4px;
-    margin-top: 10px;
+    letter-spacing: 6px;
+    margin-top: 14px;
     text-align: center;
   }
 
   /* Ghosts */
   .ghosts-row {
     display: flex;
-    gap: 18px;
-    margin: 22px 0 14px;
+    gap: 28px;
+    margin: 28px 0 18px;
   }
   .ghost {
-    font-size: 22px;
+    font-size: 38px;
     animation: floatGhost 1.2s ease-in-out infinite alternate;
   }
   .ghost:nth-child(1) { animation-delay: 0s;    filter: drop-shadow(0 0 6px #ff2d78); }
@@ -92,7 +92,7 @@
     align-items: center;
   }
   .heart {
-    font-size: 14px;
+    font-size: 22px;
     animation: heartBeat 0.9s ease-in-out infinite;
   }
   .heart:nth-child(1) { animation-delay: 0s;   }
@@ -105,26 +105,26 @@
 
   /* Insert coin */
   .insert-coin {
-    font-size: 9px;
+    font-size: 15px;
     color: #ffe600;
     text-shadow: 0 0 8px #ffe600;
     animation: blink 0.85s step-end infinite;
-    margin: 4px 0 20px;
-    letter-spacing: 2px;
+    margin: 8px 0 26px;
+    letter-spacing: 3px;
     text-align: center;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
   /* Botón START */
   #btn-start {
-    padding: 14px 32px;
+    padding: 20px 48px;
     background: transparent;
     color: #39ff14;
     border: 3px solid #39ff14;
     font-family: 'Press Start 2P', monospace;
-    font-size: clamp(10px, 3vw, 12px);
+    font-size: clamp(14px, 2vw, 18px);
     cursor: pointer;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-shadow: 0 0 8px #39ff14;
     box-shadow: 0 0 12px #39ff14, inset 0 0 12px rgba(57,255,20,0.1);
     transition: all 0.15s;
@@ -179,12 +179,12 @@
   /* Score */
   .score-row {
     display: flex;
-    gap: 28px;
-    margin-top: 20px;
+    gap: 48px;
+    margin-top: 24px;
   }
   .score-item { text-align: center; }
-  .score-label { font-size: 6px; color: #888; display: block; margin-bottom: 5px; }
-  .score-val   { font-size: 10px; color: #fff; text-shadow: 0 0 8px #fff; }
+  .score-label { font-size: 10px; color: #888; display: block; margin-bottom: 8px; }
+  .score-val   { font-size: 16px; color: #fff; text-shadow: 0 0 8px #fff; }
 
   .divider {
     width: 80%;
@@ -193,11 +193,11 @@
     margin: 18px auto;
   }
   .copyright {
-    font-size: 6px;
+    font-size: 11px;
     color: #444;
     text-align: center;
-    padding-bottom: 16px;
-    letter-spacing: 2px;
+    padding-bottom: 20px;
+    letter-spacing: 3px;
   }
 
   /* ══════════════════════════════
@@ -213,19 +213,19 @@
     background: #000;
   }
   .loading-title {
-    font-size: clamp(14px, 4.5vw, 18px);
+    font-size: clamp(22px, 4vw, 36px);
     text-align: center;
     line-height: 1.8;
-    margin-bottom: 28px;
+    margin-bottom: 36px;
     animation: colorShift 2s linear infinite;
   }
   .bar-wrap {
-    width: min(260px, 78vw);
-    height: 20px;
+    width: min(480px, 78vw);
+    height: 28px;
     border: 3px solid #39ff14;
     background: #001a00;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     box-shadow: 0 0 10px #39ff14;
   }
   .bar-fill {
@@ -239,8 +239,8 @@
     transition: width 0.08s;
     box-shadow: 0 0 8px #39ff14;
   }
-  #load-pct { font-size: 10px; color: #39ff14; letter-spacing: 3px; }
-  .load-msg  { font-size: 7px; color: #555; margin-top: 8px; animation: blink 0.65s step-end infinite; }
+  #load-pct { font-size: 16px; color: #39ff14; letter-spacing: 4px; }
+  .load-msg  { font-size: 12px; color: #555; margin-top: 12px; animation: blink 0.65s step-end infinite; }
 
   /* ══════════════════════════════
      PANTALLA CARTA
@@ -266,19 +266,19 @@
     box-shadow: 0 2px 12px rgba(255,45,120,0.3);
   }
   #carta-header span {
-    font-size: 8px;
+    font-size: 14px;
     color: #ff2d78;
     text-shadow: 0 0 8px #ff2d78;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
   }
   #btn-back {
     font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
+    font-size: 12px;
     color: #00e5ff;
     background: none;
     border: 2px solid #00e5ff;
     cursor: pointer;
-    padding: 6px 10px;
+    padding: 10px 16px;
     text-shadow: 0 0 6px #00e5ff;
     box-shadow: 0 0 8px rgba(0,229,255,0.3);
     transition: all 0.12s;
@@ -297,12 +297,12 @@
   .tabs-bar::-webkit-scrollbar { display: none; }
   .tab-btn {
     font-family: 'Press Start 2P', monospace;
-    font-size: 6px;
+    font-size: 11px;
     color: #555;
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
-    padding: 12px 12px 9px;
+    padding: 18px 20px 14px;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.12s;
@@ -324,10 +324,10 @@
 
   /* Título de sección */
   .section-title {
-    font-size: 9px;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
     border-bottom: 1px solid #222;
     text-align: center;
   }
@@ -362,29 +362,29 @@
   #tab-postres     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
   #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(57,255,20,0.25); }
 
-  .dish-emoji { font-size: 24px; flex-shrink: 0; }
+  .dish-emoji { font-size: 40px; flex-shrink: 0; }
   .dish-info  { flex: 1; }
   .dish-name {
-    font-size: clamp(7px, 2vw, 9px);
+    font-size: clamp(12px, 1.8vw, 16px);
     color: #fff;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     letter-spacing: 0.5px;
-    line-height: 1.6;
+    line-height: 1.7;
   }
   .dish-desc {
-    font-size: 6px;
+    font-size: 11px;
     color: #666;
-    line-height: 2;
+    line-height: 2.1;
     font-family: monospace;
     font-weight: bold;
     letter-spacing: 0.3px;
   }
   .dish-tag {
     display: inline-block;
-    font-size: 5px;
-    padding: 2px 6px;
-    margin-top: 6px;
-    letter-spacing: 1px;
+    font-size: 9px;
+    padding: 4px 10px;
+    margin-top: 8px;
+    letter-spacing: 2px;
     border: 1px solid;
   }
   .dish-tag.veg  { color: #39ff14; border-color: #39ff14; }
@@ -395,15 +395,24 @@
   /* Footer carta */
   .carta-footer {
     text-align: center;
-    padding: 22px 16px 32px;
+    padding: 28px 24px 40px;
     border-top: 1px solid #1a1a1a;
     margin-top: 8px;
   }
-  .carta-footer p { font-size: 6px; color: #444; line-height: 2.4; letter-spacing: 1px; }
+  .carta-footer p { font-size: 11px; color: #444; line-height: 2.6; letter-spacing: 2px; }
 
-  @media (max-width: 360px) {
-    .tab-btn   { padding: 10px 10px 7px; font-size: 5.5px; }
-    .dish-name { font-size: 7px; }
+  /* Grid de platos en desktop */
+  @media (min-width: 640px) {
+    .carta-section { padding: 28px 32px; }
+    .dish-card { padding: 18px 20px; gap: 20px; }
+    #carta-header { padding: 16px 32px; }
+    .tabs-bar .tab-btn { padding: 20px 28px 16px; font-size: 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .tab-btn   { padding: 12px 12px 9px; font-size: 9px; }
+    .dish-name { font-size: 11px; }
+    .title-mv  { font-size: clamp(22px, 7vw, 32px); }
   }
 </style>
 
