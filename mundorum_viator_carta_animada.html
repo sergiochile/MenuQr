@@ -50,10 +50,9 @@
     animation: colorShift 2s linear infinite;
   }
   @keyframes colorShift {
-    0%   { color: #d42b2b; text-shadow: 0 0 12px #d42b2b, 0 0 24px #d42b2b; }
-    33%  { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
-    66%  { color: #ff6a00; text-shadow: 0 0 12px #ff6a00, 0 0 24px #ff6a00; }
-    100% { color: #d42b2b; text-shadow: 0 0 12px #d42b2b, 0 0 24px #d42b2b; }
+    0%   { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
+    50%  { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
+    100% { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
   }
 
   .subtitle-mv {
@@ -123,20 +122,20 @@
   #btn-start {
     padding: 20px 48px;
     background: transparent;
-    color: #d42b2b;
-    border: 3px solid #d42b2b;
+    color: #ffe600;
+    border: 3px solid #ffe600;
     font-family: 'Press Start 2P', monospace;
     font-size: clamp(14px, 2vw, 18px);
     cursor: pointer;
     letter-spacing: 3px;
-    text-shadow: 0 0 8px #d42b2b;
-    box-shadow: 0 0 12px #d42b2b, inset 0 0 12px rgba(212,43,43,0.1);
+    text-shadow: 0 0 8px #ffe600;
+    box-shadow: 0 0 12px #ffe600, inset 0 0 12px rgba(255,230,0,0.08);
     transition: all 0.15s;
   }
   #btn-start:hover, #btn-start:focus {
-    background: #d42b2b;
-    color: #fff;
-    box-shadow: 0 0 28px #d42b2b;
+    background: #ffe600;
+    color: #000;
+    box-shadow: 0 0 28px #ffe600;
     text-shadow: none;
     transform: scale(1.04);
   }
@@ -226,24 +225,24 @@
   .bar-wrap {
     width: min(480px, 78vw);
     height: 28px;
-    border: 3px solid #39ff14;
-    background: #001a00;
+    border: 3px solid #00e5ff;
+    background: #001a1a;
     overflow: hidden;
     margin-bottom: 16px;
-    box-shadow: 0 0 10px #39ff14;
+    box-shadow: 0 0 10px #00e5ff;
   }
   .bar-fill {
     height: 100%;
     width: 0%;
     background: repeating-linear-gradient(
       90deg,
-      #39ff14 0px, #39ff14 10px,
-      #00a000 10px, #00a000 14px
+      #00e5ff 0px, #00e5ff 10px,
+      #006080 10px, #006080 14px
     );
     transition: width 0.08s;
-    box-shadow: 0 0 8px #39ff14;
+    box-shadow: 0 0 8px #00e5ff;
   }
-  #load-pct { font-size: 16px; color: #39ff14; letter-spacing: 4px; }
+  #load-pct { font-size: 16px; color: #00e5ff; letter-spacing: 4px; }
   .load-msg  { font-size: 12px; color: #555; margin-top: 12px; animation: blink 0.65s step-end infinite; }
 
   /* ══════════════════════════════
@@ -259,7 +258,7 @@
   /* Header */
   #carta-header {
     background: #0a0a0a;
-    border-bottom: 2px solid #d42b2b;
+    border-bottom: 2px solid #00e5ff;
     padding: 12px 16px;
     display: flex;
     align-items: center;
@@ -267,12 +266,12 @@
     position: sticky;
     top: 0;
     z-index: 40;
-    box-shadow: 0 2px 12px rgba(212,43,43,0.4);
+    box-shadow: 0 2px 12px rgba(0,229,255,0.3);
   }
   #carta-header span {
     font-size: 14px;
-    color: #d42b2b;
-    text-shadow: 0 0 8px #d42b2b;
+    color: #00e5ff;
+    text-shadow: 0 0 8px #00e5ff;
     letter-spacing: 2px;
   }
   #btn-back {
@@ -294,7 +293,7 @@
     display: flex;
     overflow-x: auto;
     background: #0a0a0a;
-    border-bottom: 2px solid #222;
+    border-bottom: 2px solid #00e5ff;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -332,10 +331,10 @@
     border-bottom: 1px solid #222;
     text-align: center;
   }
-  #tab-entrantes  .section-title { color: #d42b2b; text-shadow: 0 0 8px #d42b2b; }
-  #tab-principales .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
-  #tab-postres    .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
-  #tab-bebidas    .section-title { color: #ff6a00; text-shadow: 0 0 8px #ff6a00; }
+  #tab-entrantes  .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
+  #tab-principales .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
+  #tab-postres    .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
+  #tab-bebidas    .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
 
   /* Dish cards */
   .dish-card {
@@ -349,19 +348,19 @@
     margin-bottom: 10px;
     transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
   }
-  #tab-entrantes   .dish-card { border-left-color: #d42b2b; }
-  #tab-principales .dish-card { border-left-color: #00e5ff; }
-  #tab-postres     .dish-card { border-left-color: #ffe600; }
-  #tab-bebidas     .dish-card { border-left-color: #ff6a00; }
+  #tab-entrantes   .dish-card { border-left-color: #00e5ff; }
+  #tab-principales .dish-card { border-left-color: #ffe600; }
+  #tab-postres     .dish-card { border-left-color: #00e5ff; }
+  #tab-bebidas     .dish-card { border-left-color: #ffe600; }
 
   .dish-card:hover {
     transform: translateX(4px);
     box-shadow: -4px 0 16px rgba(255,255,255,0.08);
   }
-  #tab-entrantes   .dish-card:hover { box-shadow: -4px 0 16px rgba(212,43,43,0.35); }
-  #tab-principales .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.25); }
-  #tab-postres     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
-  #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,106,0,0.30); }
+  #tab-entrantes   .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.30); }
+  #tab-principales .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
+  #tab-postres     .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.30); }
+  #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
 
   .dish-emoji { font-size: 40px; flex-shrink: 0; }
   .dish-info  { flex: 1; }
@@ -388,10 +387,10 @@
     letter-spacing: 2px;
     border: 1px solid;
   }
-  .dish-tag.veg  { color: #ffe600; border-color: #ffe600; }
-  .dish-tag.new  { color: #ff6a00; border-color: #ff6a00; }
-  .dish-tag.star { color: #d42b2b; border-color: #d42b2b; }
-  .dish-tag.spec { color: #00e5ff; border-color: #00e5ff; }
+  .dish-tag.veg  { color: #00e5ff; border-color: #00e5ff; }
+  .dish-tag.new  { color: #ffe600; border-color: #ffe600; }
+  .dish-tag.star { color: #00e5ff; border-color: #00e5ff; }
+  .dish-tag.spec { color: #ffe600; border-color: #ffe600; }
 
   /* Footer carta */
   .carta-footer {
