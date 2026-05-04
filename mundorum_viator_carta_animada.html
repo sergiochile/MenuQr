@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Mundorum Viator - Carta</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -13,25 +13,267 @@
       padding: 0;
     }
 
-    :root {
-      --gold: #ffd700;
-      --cyan: #44ffff;
-      --green: #00ff88;
-      --ink: #050505;
-      --panel: #101010;
-      --line: #2e2e2e;
-    }
-
     body {
       min-height: 100vh;
-      background: var(--ink);
+      background: #000;
       color: #fff;
       font-family: 'Press Start 2P', monospace;
     }
 
-    .shell {
+    #app {
+      width: 100%;
       min-height: 100vh;
-      display: grid;
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    #screen-start,
+    #screen-loading {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      background: #000;
+    }
+
+    #screen-loading,
+    #screen-carta {
+      display: none;
+    }
+
+    .title-mv,
+    .loading-title {
+      font-size: clamp(30px, 7vw, 56px);
+      line-height: 1.6;
+      text-align: center;
+      animation: colorShift 2s linear infinite;
+      letter-spacing: 0;
+    }
+
+    @keyframes colorShift {
+      0% { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
+      50% { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
+      100% { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
+    }
+
+    .subtitle-mv {
+      margin-top: 14px;
+      color: #888;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-align: center;
+    }
+
+    .pacman-hero-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0 18px;
+    }
+
+    .pacman-hero-track {
+      position: relative;
+      width: min(320px, 80vw);
+      height: 48px;
+    }
+
+    .pacman-hero-dots,
+    .dots-row {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transform: translateY(-50%);
+    }
+
+    .pacman-hero-dot,
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffe600;
+      box-shadow: 0 0 6px #ffe600;
+    }
+
+    .pacman-hero,
+    .pacman {
+      position: absolute;
+      top: 1px;
+      left: 0;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #ffe600;
+      clip-path: polygon(100% 50%, 0% 0%, 0% 100%);
+      animation: chomp 0.22s ease-in-out infinite alternate, movePacHero 3.8s linear infinite;
+      box-shadow: 0 0 14px #ffe600, 0 0 28px rgba(255, 230, 0, 0.4);
+    }
+
+    @keyframes chomp {
+      from { clip-path: polygon(100% 50%, 0% 0%, 0% 100%); }
+      to { clip-path: polygon(100% 50%, 55% 45%, 55% 55%); }
+    }
+
+    @keyframes movePacHero {
+      from { left: 0; }
+      to { left: calc(min(320px, 80vw) - 46px); }
+    }
+
+    .insert-coin {
+      margin: 8px 0 26px;
+      color: #ffe600;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-align: center;
+      text-shadow: 0 0 8px #ffe600;
+      animation: blink 0.85s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    #btn-start {
+      padding: 20px 48px;
+      border: 3px solid #ffe600;
+      background: transparent;
+      color: #ffe600;
+      font-family: inherit;
+      font-size: clamp(14px, 4vw, 18px);
+      letter-spacing: 3px;
+      cursor: pointer;
+      text-shadow: 0 0 8px #ffe600;
+      box-shadow: 0 0 12px #ffe600, inset 0 0 12px rgba(255, 230, 0, 0.08);
+      transition: all 0.15s;
+    }
+
+    #btn-start:hover,
+    #btn-start:focus {
+      background: #ffe600;
+      color: #000;
+      text-shadow: none;
+      box-shadow: 0 0 28px #ffe600;
+      outline: none;
+      transform: scale(1.04);
+    }
+
+    .pacman-track {
+      position: relative;
+      width: 240px;
+      height: 20px;
+      margin-top: 24px;
+    }
+
+    .dots-row {
+      gap: 12px;
+      left: 8px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    .pacman {
+      width: 20px;
+      height: 20px;
+      animation: chomp 0.22s ease-in-out infinite alternate, movePac 3.5s linear infinite;
+      box-shadow: 0 0 8px #ffe600;
+    }
+
+    @keyframes movePac {
+      from { left: 0; }
+      to { left: 220px; }
+    }
+
+    .score-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 24px;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #888;
+      font-size: 10px;
+    }
+
+    .score-val {
+      color: #fff;
+      font-size: 16px;
+      text-shadow: 0 0 8px #fff;
+    }
+
+    .divider {
+      width: 80%;
+      margin: 18px auto;
+      border: none;
+      border-top: 1px solid #333;
+    }
+
+    .copyright {
+      padding-bottom: 20px;
+      color: #444;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-align: center;
+    }
+
+    .loading-title {
+      margin-bottom: 36px;
+      font-size: clamp(22px, 5vw, 36px);
+    }
+
+    .bar-wrap {
+      width: min(480px, 78vw);
+      height: 28px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      border: 3px solid #00e5ff;
+      background: #001a1a;
+      box-shadow: 0 0 10px #00e5ff;
+    }
+
+    .bar-fill {
+      width: 0%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        #00e5ff 0,
+        #00e5ff 10px,
+        #006080 10px,
+        #006080 14px
+      );
+      box-shadow: 0 0 8px #00e5ff;
+      transition: width 0.08s;
+    }
+
+    #load-pct {
+      color: #00e5ff;
+      font-size: 16px;
+      letter-spacing: 4px;
+    }
+
+    .load-msg {
+      margin-top: 12px;
+      color: #555;
+      font-size: 12px;
+      animation: blink 0.65s step-end infinite;
+    }
+
+    #screen-carta {
+      min-height: 100vh;
       grid-template-rows: auto 1fr;
       background:
         linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px),
@@ -40,23 +282,22 @@
       background-size: 32px 32px;
     }
 
-    header {
+    #carta-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       padding: 14px 16px;
-      border-bottom: 3px solid var(--gold);
+      border-bottom: 3px solid #ffd700;
       background: rgba(0, 0, 0, 0.92);
       box-shadow: 0 0 22px rgba(255, 215, 0, 0.18);
     }
 
-    h1 {
-      color: var(--gold);
-      font-size: clamp(13px, 3vw, 22px);
+    #carta-header span {
+      color: #ffd700;
+      font-size: clamp(12px, 3vw, 18px);
       line-height: 1.6;
       text-shadow: 2px 2px #8b0000;
-      letter-spacing: 0;
     }
 
     .actions {
@@ -66,18 +307,14 @@
       gap: 8px;
     }
 
-    a {
-      color: inherit;
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
       min-height: 38px;
       padding: 10px 12px;
-      border: 2px solid var(--green);
+      border: 2px solid #00ff88;
       background: #000;
-      color: var(--green);
+      color: #00ff88;
       font-family: inherit;
       font-size: 8px;
       line-height: 1.4;
@@ -87,7 +324,7 @@
 
     .btn:hover,
     .btn:focus-visible {
-      background: var(--green);
+      background: #00ff88;
       color: #000;
       outline: none;
     }
@@ -98,11 +335,11 @@
     }
 
     .pdf-frame {
-      width: 100%;
-      height: calc(100vh - 94px);
-      min-height: 640px;
       display: block;
-      border: 3px solid var(--cyan);
+      width: 100%;
+      height: calc(100vh - 84px);
+      min-height: 620px;
+      border: 3px solid #44ffff;
       background: #111;
       box-shadow: 0 0 22px rgba(68, 255, 255, 0.18);
     }
@@ -111,8 +348,8 @@
       max-width: 680px;
       margin: 44px auto;
       padding: 24px;
-      border: 3px solid var(--gold);
-      background: var(--panel);
+      border: 3px solid #ffd700;
+      background: #101010;
       text-align: center;
       line-height: 2.1;
     }
@@ -124,7 +361,7 @@
     }
 
     @media (max-width: 680px) {
-      header {
+      #carta-header {
         align-items: stretch;
         flex-direction: column;
       }
@@ -143,32 +380,156 @@
       }
 
       .pdf-frame {
-        height: calc(100vh - 136px);
+        height: calc(100vh - 126px);
         min-height: 520px;
-        border-left: 0;
         border-right: 0;
+        border-left: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <h1>MUNDORUM<br>VIATOR</h1>
-      <div class="actions">
-        <a class="btn" href="carta-suanzes-04-05-26.pdf" target="_blank" rel="noopener">ABRIR PDF</a>
-        <a class="btn" href="carta-suanzes-04-05-26.pdf" download>DESCARGAR</a>
-      </div>
-    </header>
+  <div id="app">
+    <div id="screen-start">
+      <div class="title-mv">MUNDORUM<br>VIATOR</div>
+      <div class="subtitle-mv">CARTA DIGITAL</div>
 
-    <main>
-      <object class="pdf-frame" data="carta-suanzes-04-05-26.pdf" type="application/pdf">
-        <div class="fallback">
-          <p>Tu navegador no puede mostrar el PDF integrado.</p>
-          <a class="btn" href="carta-suanzes-04-05-26.pdf">ABRIR CARTA</a>
+      <div class="pacman-hero-wrap">
+        <div class="pacman-hero-track">
+          <div class="pacman-hero-dots">
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+            <div class="pacman-hero-dot"></div>
+          </div>
+          <div class="pacman-hero"></div>
         </div>
-      </object>
-    </main>
+      </div>
+
+      <div class="insert-coin">INSERT COIN</div>
+      <button id="btn-start" onclick="startLoading()">CARTA</button>
+
+      <div class="pacman-track">
+        <div class="dots-row">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="pacman"></div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-item">
+          <span class="score-label">HI-SCORE</span>
+          <span class="score-val">100000</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">SCORE</span>
+          <span class="score-val" id="live-score">00000</span>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="copyright">MUNDORUM VIATOR 2026</div>
+    </div>
+
+    <div id="screen-loading">
+      <div class="loading-title">MUNDORUM<br>VIATOR</div>
+      <div class="bar-wrap">
+        <div class="bar-fill" id="load-bar"></div>
+      </div>
+      <div id="load-pct">0%</div>
+      <div class="load-msg" id="load-msg">CARGANDO RECETAS...</div>
+    </div>
+
+    <div id="screen-carta">
+      <div id="carta-header">
+        <span>MUNDORUM VIATOR</span>
+        <div class="actions">
+          <button class="btn" onclick="showStart()">MENU</button>
+          <a class="btn" href="carta-suanzes-04-05-26.pdf?v=20260504" target="_blank" rel="noopener">ABRIR PDF</a>
+        </div>
+      </div>
+
+      <main>
+        <object class="pdf-frame" data="carta-suanzes-04-05-26.pdf?v=20260504" type="application/pdf">
+          <div class="fallback">
+            <p>Tu navegador no puede mostrar el PDF integrado.</p>
+            <a class="btn" href="carta-suanzes-04-05-26.pdf?v=20260504">ABRIR CARTA</a>
+          </div>
+        </object>
+      </main>
+    </div>
   </div>
+
+  <script>
+    let score = 0;
+    const scoreEl = document.getElementById('live-score');
+
+    setInterval(() => {
+      score = (score + Math.floor(Math.random() * 90)) % 100000;
+      scoreEl.textContent = String(score).padStart(5, '0');
+    }, 800);
+
+    function startLoading() {
+      document.getElementById('screen-start').style.display = 'none';
+      document.getElementById('screen-carta').style.display = 'none';
+
+      const loading = document.getElementById('screen-loading');
+      const bar = document.getElementById('load-bar');
+      const pct = document.getElementById('load-pct');
+      const msg = document.getElementById('load-msg');
+      const msgs = [
+        'CARGANDO RECETAS...',
+        'CALENTANDO COCINA...',
+        'AFILANDO CUCHILLOS...',
+        'PREPARANDO MESA...',
+        'LISTO'
+      ];
+
+      let progress = 0;
+      bar.style.width = '0%';
+      pct.textContent = '0%';
+      msg.textContent = msgs[0];
+      loading.style.display = 'flex';
+
+      const interval = setInterval(() => {
+        progress = Math.min(progress + Math.floor(Math.random() * 9) + 2, 100);
+        bar.style.width = progress + '%';
+        pct.textContent = progress + '%';
+        msg.textContent = msgs[Math.min(Math.floor(progress / 22), 4)];
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(showCarta, 400);
+        }
+      }, 70);
+    }
+
+    function showCarta() {
+      document.getElementById('screen-loading').style.display = 'none';
+      document.getElementById('screen-carta').style.display = 'grid';
+    }
+
+    function showStart() {
+      document.getElementById('screen-carta').style.display = 'none';
+      document.getElementById('screen-loading').style.display = 'none';
+      document.getElementById('screen-start').style.display = 'flex';
+      document.getElementById('load-bar').style.width = '0%';
+      document.getElementById('load-pct').textContent = '0%';
+    }
+  </script>
 </body>
 </html>
