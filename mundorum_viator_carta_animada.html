@@ -2,751 +2,173 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Mundorum Viator — Carta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundorum Viator - Carta</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #ffd700;
+      --cyan: #44ffff;
+      --green: #00ff88;
+      --ink: #050505;
+      --panel: #101010;
+      --line: #2e2e2e;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--ink);
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background:
+        linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(68, 255, 255, 0.06) 1px, transparent 1px),
+        #000;
+      background-size: 32px 32px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-bottom: 3px solid var(--gold);
+      background: rgba(0, 0, 0, 0.92);
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.18);
+    }
+
+    h1 {
+      color: var(--gold);
+      font-size: clamp(13px, 3vw, 22px);
+      line-height: 1.6;
+      text-shadow: 2px 2px #8b0000;
+      letter-spacing: 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 10px 12px;
+      border: 2px solid var(--green);
+      background: #000;
+      color: var(--green);
+      font-family: inherit;
+      font-size: 8px;
+      line-height: 1.4;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: var(--green);
+      color: #000;
+      outline: none;
+    }
+
+    main {
+      min-height: 0;
+      padding: 10px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: calc(100vh - 94px);
+      min-height: 640px;
+      display: block;
+      border: 3px solid var(--cyan);
+      background: #111;
+      box-shadow: 0 0 22px rgba(68, 255, 255, 0.18);
+    }
+
+    .fallback {
+      max-width: 680px;
+      margin: 44px auto;
+      padding: 24px;
+      border: 3px solid var(--gold);
+      background: var(--panel);
+      text-align: center;
+      line-height: 2.1;
+    }
+
+    .fallback p {
+      margin-bottom: 18px;
+      color: #d8d8d8;
+      font-size: 10px;
+    }
+
+    @media (max-width: 680px) {
+      header {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .pdf-frame {
+        height: calc(100vh - 136px);
+        min-height: 520px;
+        border-left: 0;
+        border-right: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  <div class="shell">
+    <header>
+      <h1>MUNDORUM<br>VIATOR</h1>
+      <div class="actions">
+        <a class="btn" href="carta-suanzes-04-05-26.pdf" target="_blank" rel="noopener">ABRIR PDF</a>
+        <a class="btn" href="carta-suanzes-04-05-26.pdf" download>DESCARGAR</a>
+      </div>
+    </header>
 
-  body {
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    font-family: 'Press Start 2P', monospace;
-  }
-
-  #app {
-    width: 100%;
-    max-width: 860px;
-    min-height: 100vh;
-    background: #000;
-    position: relative;
-    overflow-x: hidden;
-  }
-
-  /* ══════════════════════════════
-     PANTALLA INICIO
-  ══════════════════════════════ */
-  #screen-start {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 24px 20px;
-    background: #000;
-  }
-
-  /* Título animado colores */
-  .title-mv {
-    font-size: clamp(32px, 6vw, 56px);
-    text-align: center;
-    line-height: 1.6;
-    letter-spacing: 4px;
-    animation: colorShift 2s linear infinite;
-  }
-  @keyframes colorShift {
-    0%   { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
-    50%  { color: #ffe600; text-shadow: 0 0 12px #ffe600, 0 0 24px #ffe600; }
-    100% { color: #00e5ff; text-shadow: 0 0 12px #00e5ff, 0 0 24px #00e5ff; }
-  }
-
-  .subtitle-mv {
-    font-size: 14px;
-    color: #888;
-    letter-spacing: 6px;
-    margin-top: 14px;
-    text-align: center;
-  }
-
-  /* Pac-Man decorativo grande */
-  .pacman-hero-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 28px 0 18px;
-    gap: 14px;
-  }
-  .pacman-hero-track {
-    position: relative;
-    width: min(320px, 80vw);
-    height: 48px;
-  }
-  .pacman-hero-dots {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .pacman-hero-dot {
-    width: 10px; height: 10px;
-    background: #ffe600;
-    border-radius: 50%;
-    box-shadow: 0 0 6px #ffe600;
-  }
-  .pacman-hero {
-    width: 46px; height: 46px;
-    background: #ffe600;
-    border-radius: 50%;
-    clip-path: polygon(100% 50%, 0% 0%, 0% 100%);
-    animation: chomp 0.22s ease-in-out infinite alternate, movePacHero 3.8s linear infinite;
-    position: absolute;
-    top: 1px; left: 0;
-    box-shadow: 0 0 14px #ffe600, 0 0 28px rgba(255,230,0,0.4);
-  }
-  @keyframes movePacHero {
-    from { left: 0; }
-    to   { left: calc(min(320px, 80vw) - 46px); }
-  }
-
-  /* Insert coin */
-  .insert-coin {
-    font-size: 15px;
-    color: #ffe600;
-    text-shadow: 0 0 8px #ffe600;
-    animation: blink 0.85s step-end infinite;
-    margin: 8px 0 26px;
-    letter-spacing: 3px;
-    text-align: center;
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  /* Botón START */
-  #btn-start {
-    padding: 20px 48px;
-    background: transparent;
-    color: #ffe600;
-    border: 3px solid #ffe600;
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(14px, 2vw, 18px);
-    cursor: pointer;
-    letter-spacing: 3px;
-    text-shadow: 0 0 8px #ffe600;
-    box-shadow: 0 0 12px #ffe600, inset 0 0 12px rgba(255,230,0,0.08);
-    transition: all 0.15s;
-  }
-  #btn-start:hover, #btn-start:focus {
-    background: #ffe600;
-    color: #000;
-    box-shadow: 0 0 28px #ffe600;
-    text-shadow: none;
-    transform: scale(1.04);
-  }
-  #btn-start:active { transform: scale(0.97); }
-
-  /* Pac-Man track */
-  .pacman-track {
-    position: relative;
-    width: 240px;
-    height: 20px;
-    margin-top: 24px;
-  }
-  .dots-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .dot {
-    width: 6px; height: 6px;
-    background: #ffe600;
-    border-radius: 50%;
-    box-shadow: 0 0 4px #ffe600;
-  }
-  .pacman {
-    width: 20px; height: 20px;
-    background: #ffe600;
-    border-radius: 50%;
-    clip-path: polygon(100% 50%, 0% 0%, 0% 100%);
-    animation: chomp 0.22s ease-in-out infinite alternate, movePac 3.5s linear infinite;
-    position: absolute;
-    top: 0; left: 0;
-    box-shadow: 0 0 8px #ffe600;
-  }
-  @keyframes chomp {
-    from { clip-path: polygon(100% 50%, 0% 0%, 0% 100%); }
-    to   { clip-path: polygon(100% 50%, 55% 45%, 55% 55%); }
-  }
-  @keyframes movePac { from { left: 0; } to { left: 220px; } }
-
-  /* Score */
-  .score-row {
-    display: flex;
-    gap: 48px;
-    margin-top: 24px;
-  }
-  .score-item { text-align: center; }
-  .score-label { font-size: 10px; color: #888; display: block; margin-bottom: 8px; }
-  .score-val   { font-size: 16px; color: #fff; text-shadow: 0 0 8px #fff; }
-
-  .divider {
-    width: 80%;
-    border: none;
-    border-top: 1px solid #333;
-    margin: 18px auto;
-  }
-  .copyright {
-    font-size: 11px;
-    color: #444;
-    text-align: center;
-    padding-bottom: 20px;
-    letter-spacing: 3px;
-  }
-
-  /* ══════════════════════════════
-     PANTALLA LOADING
-  ══════════════════════════════ */
-  #screen-loading {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 24px 20px;
-    background: #000;
-  }
-  .loading-title {
-    font-size: clamp(22px, 4vw, 36px);
-    text-align: center;
-    line-height: 1.8;
-    margin-bottom: 36px;
-    animation: colorShift 2s linear infinite;
-  }
-  .bar-wrap {
-    width: min(480px, 78vw);
-    height: 28px;
-    border: 3px solid #00e5ff;
-    background: #001a1a;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: 0 0 10px #00e5ff;
-  }
-  .bar-fill {
-    height: 100%;
-    width: 0%;
-    background: repeating-linear-gradient(
-      90deg,
-      #00e5ff 0px, #00e5ff 10px,
-      #006080 10px, #006080 14px
-    );
-    transition: width 0.08s;
-    box-shadow: 0 0 8px #00e5ff;
-  }
-  #load-pct { font-size: 16px; color: #00e5ff; letter-spacing: 4px; }
-  .load-msg  { font-size: 12px; color: #555; margin-top: 12px; animation: blink 0.65s step-end infinite; }
-
-  /* ══════════════════════════════
-     PANTALLA CARTA
-  ══════════════════════════════ */
-  #screen-carta {
-    display: none;
-    flex-direction: column;
-    min-height: 100vh;
-    background: #000;
-  }
-
-  /* Header */
-  #carta-header {
-    background: #0a0a0a;
-    border-bottom: 2px solid #00e5ff;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    box-shadow: 0 2px 12px rgba(0,229,255,0.3);
-  }
-  #carta-header span {
-    font-size: 14px;
-    color: #00e5ff;
-    text-shadow: 0 0 8px #00e5ff;
-    letter-spacing: 2px;
-  }
-  #btn-back {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 12px;
-    color: #ffe600;
-    background: none;
-    border: 2px solid #ffe600;
-    cursor: pointer;
-    padding: 10px 16px;
-    text-shadow: 0 0 6px #ffe600;
-    box-shadow: 0 0 8px rgba(255,230,0,0.3);
-    transition: all 0.12s;
-  }
-  #btn-back:hover { background: #ffe600; color: #000; text-shadow: none; }
-
-  /* Tabs */
-  .tabs-bar {
-    display: flex;
-    overflow-x: auto;
-    background: #0a0a0a;
-    border-bottom: 2px solid #00e5ff;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .tabs-bar::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    color: #555;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    padding: 18px 20px 14px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.12s;
-    flex-shrink: 0;
-  }
-  .tab-btn:hover { color: #fff; }
-  .tab-btn.active {
-    color: #ffe600;
-    border-bottom: 3px solid #ffe600;
-    text-shadow: 0 0 8px #ffe600;
-  }
-
-  /* Secciones */
-  .carta-section { display: none; padding: 18px 16px; animation: fadeUp 0.3s ease both; }
-  .carta-section.active { display: block; }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  /* Título de sección */
-  .section-title {
-    font-size: 16px;
-    letter-spacing: 3px;
-    margin-bottom: 22px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid #222;
-    text-align: center;
-  }
-  #tab-entrantes  .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
-  #tab-principales .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
-  #tab-postres    .section-title { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
-  #tab-bebidas    .section-title { color: #ffe600; text-shadow: 0 0 8px #ffe600; }
-
-  /* Dish cards */
-  .dish-card {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    background: #0d0d0d;
-    border: 1px solid #222;
-    border-left: 4px solid;
-    padding: 13px 13px 13px 12px;
-    margin-bottom: 10px;
-    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
-  }
-  #tab-entrantes   .dish-card { border-left-color: #00e5ff; }
-  #tab-principales .dish-card { border-left-color: #ffe600; }
-  #tab-postres     .dish-card { border-left-color: #00e5ff; }
-  #tab-bebidas     .dish-card { border-left-color: #ffe600; }
-
-  .dish-card:hover {
-    transform: translateX(4px);
-    box-shadow: -4px 0 16px rgba(255,255,255,0.08);
-  }
-  #tab-entrantes   .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.30); }
-  #tab-principales .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
-  #tab-postres     .dish-card:hover { box-shadow: -4px 0 16px rgba(0,229,255,0.30); }
-  #tab-bebidas     .dish-card:hover { box-shadow: -4px 0 16px rgba(255,230,0,0.25); }
-
-  .dish-emoji { font-size: 40px; flex-shrink: 0; }
-  .dish-info  { flex: 1; }
-  .dish-name {
-    font-size: clamp(12px, 1.8vw, 16px);
-    color: #fff;
-    margin-bottom: 10px;
-    letter-spacing: 0.5px;
-    line-height: 1.7;
-  }
-  .dish-desc {
-    font-size: 11px;
-    color: #666;
-    line-height: 2.1;
-    font-family: monospace;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-  }
-  .dish-tag {
-    display: inline-block;
-    font-size: 9px;
-    padding: 4px 10px;
-    margin-top: 8px;
-    letter-spacing: 2px;
-    border: 1px solid;
-  }
-  .dish-tag.veg  { color: #00e5ff; border-color: #00e5ff; }
-  .dish-tag.new  { color: #ffe600; border-color: #ffe600; }
-  .dish-tag.star { color: #00e5ff; border-color: #00e5ff; }
-  .dish-tag.spec { color: #ffe600; border-color: #ffe600; }
-
-  /* Footer carta */
-  .carta-footer {
-    text-align: center;
-    padding: 28px 24px 40px;
-    border-top: 1px solid #1a1a1a;
-    margin-top: 8px;
-  }
-  .carta-footer p { font-size: 11px; color: #444; line-height: 2.6; letter-spacing: 2px; }
-
-  /* Grid de platos en desktop */
-  @media (min-width: 640px) {
-    .carta-section { padding: 28px 32px; }
-    .dish-card { padding: 18px 20px; gap: 20px; }
-    #carta-header { padding: 16px 32px; }
-    .tabs-bar .tab-btn { padding: 20px 28px 16px; font-size: 12px; }
-  }
-
-  @media (max-width: 480px) {
-    .tab-btn   { padding: 12px 12px 9px; font-size: 9px; }
-    .dish-name { font-size: 11px; }
-    .title-mv  { font-size: clamp(22px, 7vw, 32px); }
-  }
-</style>
-
-<div id="app">
-
-  <!-- ══ INICIO ══ -->
-  <div id="screen-start">
-    <div class="title-mv">MUNDORUM<br>VIATOR</div>
-    <div class="subtitle-mv">— CARTA DIGITAL —</div>
-
-    <div class="ghosts-row" style="display:none">
-      <div class="ghost">👻</div>
-      <div class="ghost">👻</div>
-      <div class="ghost">👻</div>
-      <div class="ghost">👻</div>
-    </div>
-
-    <div class="hearts-row" style="display:none">
-      <div class="heart">❤️</div>
-      <div class="heart">❤️</div>
-      <div class="heart">❤️</div>
-    </div>
-
-    <div class="pacman-hero-wrap">
-      <div class="pacman-hero-track">
-        <div class="pacman-hero-dots">
-          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
-          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
-          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
-          <div class="pacman-hero-dot"></div><div class="pacman-hero-dot"></div>
+    <main>
+      <object class="pdf-frame" data="carta-suanzes-04-05-26.pdf" type="application/pdf">
+        <div class="fallback">
+          <p>Tu navegador no puede mostrar el PDF integrado.</p>
+          <a class="btn" href="carta-suanzes-04-05-26.pdf">ABRIR CARTA</a>
         </div>
-        <div class="pacman-hero"></div>
-      </div>
-    </div>
-
-    <div class="insert-coin">— INSERT COIN —</div>
-
-    <button id="btn-start" onclick="startLoading()">► CARTA</button>
-
-    <div class="pacman-track">
-      <div class="dots-row">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        <div class="dot"></div><div class="dot"></div>
-      </div>
-      <div class="pacman"></div>
-    </div>
-
-    <div class="score-row">
-      <div class="score-item">
-        <span class="score-label">HI-SCORE</span>
-        <span class="score-val">100000</span>
-      </div>
-      <div class="score-item">
-        <span class="score-label">SCORE</span>
-        <span class="score-val" id="live-score">00000</span>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <div class="copyright">© MUNDORUM VIATOR 2025</div>
+      </object>
+    </main>
   </div>
-
-  <!-- ══ LOADING ══ -->
-  <div id="screen-loading">
-    <div class="loading-title">MUNDORUM<br>VIATOR</div>
-    <div class="bar-wrap">
-      <div class="bar-fill" id="load-bar"></div>
-    </div>
-    <div id="load-pct">0%</div>
-    <div class="load-msg" id="load-msg">CARGANDO RECETAS...</div>
-  </div>
-
-  <!-- ══ CARTA ══ -->
-  <div id="screen-carta">
-    <div id="carta-header">
-      <span>★ M.VIATOR ★</span>
-      <button id="btn-back" onclick="showStart()">← MENÚ</button>
-    </div>
-
-    <div class="tabs-bar">
-      <button class="tab-btn active" onclick="showTab('entrantes',this)">🍢 ENTR.</button>
-      <button class="tab-btn"        onclick="showTab('principales',this)">🍖 PRINC.</button>
-      <button class="tab-btn"        onclick="showTab('postres',this)">🍮 POST.</button>
-      <button class="tab-btn"        onclick="showTab('bebidas',this)">🍺 BEB.</button>
-    </div>
-
-    <!-- ENTRANTES -->
-    <div class="carta-section active" id="tab-entrantes">
-      <div class="section-title">▸ PARA COMENZAR ◂</div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🥖</div>
-        <div class="dish-info">
-          <div class="dish-name">PAN DE MASA MADRE</div>
-          <div class="dish-desc">Mantequilla ahumada<br>y sal en escamas</div>
-          <span class="dish-tag veg">VEGANO</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🧀</div>
-        <div class="dish-info">
-          <div class="dish-name">TABLA DE QUESOS</div>
-          <div class="dish-desc">Selección artesanal,<br>mermelada de higos y nueces</div>
-          <span class="dish-tag new">NUEVO</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍤</div>
-        <div class="dish-info">
-          <div class="dish-name">CROQUETAS DE LA ABUELA</div>
-          <div class="dish-desc">Jamón ibérico,<br>bechamel cremosa · 6 uds</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🥗</div>
-        <div class="dish-info">
-          <div class="dish-name">ENSALADA VIATOR</div>
-          <div class="dish-desc">Rúcula, burrata,<br>tomate cherry, vinagreta</div>
-          <span class="dish-tag veg">VEGANO</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🐟</div>
-        <div class="dish-info">
-          <div class="dish-name">TATAKI DE ATÚN</div>
-          <div class="dish-desc">Sésamo tostado<br>y salsa ponzu</div>
-          <span class="dish-tag spec">ESPECIAL</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRINCIPALES -->
-    <div class="carta-section" id="tab-principales">
-      <div class="section-title">▸ PLATOS PRINCIPALES ◂</div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🥩</div>
-        <div class="dish-info">
-          <div class="dish-name">CHULETÓN DE ÁVILA</div>
-          <div class="dish-desc">800g a la brasa,<br>pimientos y patatas al horno</div>
-          <span class="dish-tag star">ESTRELLA</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🐟</div>
-        <div class="dish-info">
-          <div class="dish-name">LUBINA A LA SAL</div>
-          <div class="dish-desc">Verduras de temporada<br>y aceite virgen extra</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍝</div>
-        <div class="dish-info">
-          <div class="dish-name">PASTA VIATOR</div>
-          <div class="dish-desc">Tagliatelle fresca,<br>ragú de ternera y parmesano</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍲</div>
-        <div class="dish-info">
-          <div class="dish-name">COCIDO DEL VIAJERO</div>
-          <div class="dish-desc">Garbanzos, chorizo,<br>morcilla, tocino y verduras</div>
-          <span class="dish-tag spec">TEMPORADA</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🥦</div>
-        <div class="dish-info">
-          <div class="dish-name">RISOTTO DE SETAS</div>
-          <div class="dish-desc">Boletus, trufa negra,<br>mantequilla y Grana Padano</div>
-          <span class="dish-tag veg">VEGETARIANO</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- POSTRES -->
-    <div class="carta-section" id="tab-postres">
-      <div class="section-title">▸ DULCE FINAL ◂</div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍮</div>
-        <div class="dish-info">
-          <div class="dish-name">TARTA DE QUESO</div>
-          <div class="dish-desc">Al horno estilo La Viña,<br>coulis de frutos rojos</div>
-          <span class="dish-tag new">FAVORITO</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">��</div>
-        <div class="dish-info">
-          <div class="dish-name">COULANT DE CHOCOLATE</div>
-          <div class="dish-desc">Corazón fundente 70%<br>con helado vainilla bourbon</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍨</div>
-        <div class="dish-info">
-          <div class="dish-name">HELADOS ARTESANOS</div>
-          <div class="dish-desc">3 bolas a elegir<br>Pregunta los sabores del día</div>
-          <span class="dish-tag veg">VEGANO OPC.</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">☕</div>
-        <div class="dish-info">
-          <div class="dish-name">CAFÉ + MINI POSTRE</div>
-          <div class="dish-desc">Espresso +<br>sorpresa dulce del día</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BEBIDAS -->
-    <div class="carta-section" id="tab-bebidas">
-      <div class="section-title">▸ PARA BEBER ◂</div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍺</div>
-        <div class="dish-info">
-          <div class="dish-name">CERVEZA ARTESANA</div>
-          <div class="dish-desc">Rubia / Tostada / IPA<br>Elaboración local · 33cl</div>
-          <span class="dish-tag new">LOCAL</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍷</div>
-        <div class="dish-info">
-          <div class="dish-name">VINO DE LA CARTA</div>
-          <div class="dish-desc">Tintos, blancos y rosados<br>Pregunta al camarero</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🍹</div>
-        <div class="dish-info">
-          <div class="dish-name">CÓCTEL MUNDORUM</div>
-          <div class="dish-desc">Ginebra premium,<br>tónica artesana, pepino y eneldo</div>
-          <span class="dish-tag star">SIGNATURE</span>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">🥤</div>
-        <div class="dish-info">
-          <div class="dish-name">REFRESCOS / AGUA</div>
-          <div class="dish-desc">Agua mineral · Coca-Cola<br>Zumos naturales del día</div>
-        </div>
-      </div>
-
-      <div class="dish-card">
-        <div class="dish-emoji">☕</div>
-        <div class="dish-info">
-          <div class="dish-name">CAFETERÍA</div>
-          <div class="dish-desc">Espresso · Cortado<br>Americano · Capuccino · Latte</div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="carta-footer">
-      <p>★ MUNDORUM VIATOR ★</p>
-      <p style="margin-top:10px;">Avísanos de alergias o intolerancias</p>
-      <p style="margin-top:8px;font-size:5px;">Carta sujeta a disponibilidad de temporada</p>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  // Score animado
-  let sv = 0;
-  const se = document.getElementById('live-score');
-  setInterval(() => {
-    sv = (sv + Math.floor(Math.random() * 90)) % 100000;
-    se.textContent = String(sv).padStart(5, '0');
-  }, 800);
-
-  function startLoading() {
-    document.getElementById('screen-start').style.display = 'none';
-    const sl = document.getElementById('screen-loading');
-    sl.style.display = 'flex';
-    const bar = document.getElementById('load-bar');
-    const pct = document.getElementById('load-pct');
-    const msg = document.getElementById('load-msg');
-    const msgs = [
-      'CARGANDO RECETAS...', 'CALENTANDO COCINA...',
-      'AFILANDO CUCHILLOS...', 'PREPARANDO MESA...', '¡LISTO!'
-    ];
-    let p = 0;
-    const iv = setInterval(() => {
-      p = Math.min(p + Math.floor(Math.random() * 9) + 2, 100);
-      bar.style.width = p + '%';
-      pct.textContent = p + '%';
-      msg.textContent = msgs[Math.min(Math.floor(p / 22), 4)];
-      if (p >= 100) { clearInterval(iv); setTimeout(showCarta, 400); }
-    }, 70);
-  }
-
-  function showCarta() {
-    document.getElementById('screen-loading').style.display = 'none';
-    const sc = document.getElementById('screen-carta');
-    sc.style.display = 'flex';
-    showTab('entrantes', document.querySelector('.tab-btn'));
-  }
-
-  function showStart() {
-    document.getElementById('screen-carta').style.display   = 'none';
-    document.getElementById('screen-loading').style.display = 'none';
-    document.getElementById('screen-start').style.display   = 'flex';
-    document.getElementById('load-bar').style.width = '0%';
-    document.getElementById('load-pct').textContent = '0%';
-  }
-
-  function showTab(name, btn) {
-    document.querySelectorAll('.carta-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const sec = document.getElementById('tab-' + name);
-    if (sec) sec.classList.add('active');
-    if (navigator.vibrate) navigator.vibrate(20);
-  }
-</script>
 </body>
 </html>

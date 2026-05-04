@@ -56,7 +56,7 @@ const URL_CARTA = 'https://TU-USUARIO.github.io/carta-mundorumviator/mundorum_vi
 
 ## ARCHIVOS DEL PROYECTO
 
-- `mundorum_viator_carta_animada.html` → La carta interactiva (la que escanean)
+- `mundorum_viator_carta_animada.html` → La carta digital que abre el PDF nuevo
+- `carta-suanzes-04-05-26.pdf` → PDF actual de la carta
 - `qr.html` → El cartel con QR para imprimir y poner en las mesas
 - `Restaurant_Menu_Design_In_a_pixel_art_style_this_is_a_digital_menu_for_q5xG72yD.png` → Imagen de la carta
-
